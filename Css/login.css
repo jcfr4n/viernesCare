@@ -1,12 +1,64 @@
+@font-face {
+  font-family: fBold;
+  src: url(../fonts/OpenSans-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: fLight;
+  src: url(../fonts/OpenSans-Light.ttf);
+}
+
 body {
   background-image: url(../images/fondo.jpg);
+  display: flex;
+  height: 90%;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#formularioLog {
+  height: 400px;
+  display: flex;
+  align-items: center;
+  margin-right: 160px;
 }
 h1 {
   color: #fff9f9;
+  font-size: 40px;
+  margin-bottom: 50px;
+  font-family: fBold;
 }
-
+fieldset {
+  display: inline-block;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  font-family: fLight;
+}
+legend {
+  color: #fff9f9;
+}
 input {
   border-radius: 14px;
-  border: 1px solid #fff9f9;
+  border: none;
   background: transparent;
+  color: #fff9f9;
+  outline: none;
+  width: 200px;
+  font-family: fLight;
+}
+button {
+  background-color: #13b14a;
+  border: none;
+  border-radius: 8px;
+  width: 210px;
+  height: 40px;
+  margin-top: 10px;
+  color: #fff9f9;
+  font-family: fLight;
 }
