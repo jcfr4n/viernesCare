@@ -1,0 +1,12 @@
+body {
+  background-image: url(../images/fondo.jpg);
+}
+h1 {
+  color: #fff9f9;
+}
+
+input {
+  border-radius: 14px;
+  border: 1px solid #fff9f9;
+  background: transparent;
+}
