@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bd_usuario`
+-- Database: `usuarios_ViernesCare`
 --
-CREATE DATABASE IF NOT EXISTS `bd_usuario` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `bd_usuario`;
+CREATE DATABASE IF NOT EXISTS `usuarios_ViernesCare` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `usuarios_ViernesCare`;
 
 -- --------------------------------------------------------
 
