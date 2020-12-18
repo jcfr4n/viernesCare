@@ -32,15 +32,21 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 
 }
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 
     // añadir paciente Rastreador
-    if(isset($_POST['clave20']) && isset($_POST['dni']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['estado'])){
+    if(isset($_POST['clave20']) && isset($_POST['dni']) && isset($_POST['email']) && isset($_POST['telefono']) && isset($_POST['idEstado'])){
 
         $codigo8 = codigoUsuario();
 
-         $sql = $dbConn->prepare("INSERT INTO paciente (codPaciente,dni,email,telefono,idEstado) VALUES ('$codigo8,$_POST["dni"],$_POST["email"],$_POST["telefono"],1'");
+        $dni= $_POST['dni'];
+        $email= $_POST['email'];
+        $telefono= $_POST['telefono'];
+
+         $sql = $dbConn->prepare("INSERT INTO paciente (codPaciente,dni,email,telefono,idEstado)
+         VALUES ($codigo8,$dni,$email,$telefono,1)");
 
          $sql->execute();
         $sql->setFetchMode(PDO::FETCH_ASSOC);
@@ -48,7 +54,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         // echo json_encode( $sql->fetchAll() );
         exit();
         }
-
 
 }
 
