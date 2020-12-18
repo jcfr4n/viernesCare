@@ -3,7 +3,9 @@ include "config.php";
 include "utils.php";
 $dbConn =  connect($db);
 
-
+/**
+ * Esta función genera un código de ocho caracteres como clave de usuario
+ */
 function codigoUsuario(){
    //Carácteres para la contraseña
    $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
@@ -32,6 +34,15 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 
 }
+/**
+ * Aquí hacemos la inclusión del nuevo paciente. Necesita recibir los parámetros:
+ * clave20
+ * dni
+ * email
+ * telefono
+ * idEstado
+ * este servicio genera la contraseña llamando a la función codigoUsuario() y la base de datos rellena el campo autonumérico de idPaciente
+ */
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -41,12 +52,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         $codigo8 = codigoUsuario();
 
-        $dni= $_POST['dni'];
-        $email= $_POST['email'];
-        $telefono= $_POST['telefono'];
+         $sql = $dbConn->prepare("INSERT INTO paciente (idPaciente, codPaciente, dni, email, telefono, idEstado)
+         VALUES (null, :codigo, :dni, :email, :telefono ,1)");
 
-         $sql = $dbConn->prepare("INSERT INTO paciente (codPaciente,dni,email,telefono,idEstado)
-         VALUES ($codigo8,$dni,$email,$telefono,1)");
+        $sql->bindValue('codigo',$codigo8);
+        $sql->bindValue('dni',$_POST['dni']);
+        $sql->bindValue('email',$_POST['email']);
+        $sql->bindValue('telefono',$_POST['telefono']);
 
          $sql->execute();
         $sql->setFetchMode(PDO::FETCH_ASSOC);
@@ -85,4 +97,3 @@ if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
         
     }
 }
-?>
