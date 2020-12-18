@@ -14,7 +14,7 @@
     <div id="menu">
         <h1>Viernes Care</h1>
         <div id="deslog">
-            <form action='login.php' method='GET' id='usermenu'>
+            <form action='../index.php' method='GET' id='usermenu'>
                 <img src="../images/icon-user.png" id="iconUser">
                 <?php
                     $nameU =$_SESSION["AdminU"];
@@ -26,3 +26,10 @@
     </div>
 </body>
 </html>
+
+<?php
+        // Desloguearse
+        if(isset($_GET['deslogin'])){
+            session_destroy();
+        }
+?>
