@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/template.css" />
+    <link rel="stylesheet" href="../css/admin.css"/>
     <title>Document</title>
 </head>
 <body>
@@ -25,10 +25,34 @@
         </div>
     </div>
 
+    <div id="newUser">
+        <div id="labels">
+        <p>Nombre</p>
+        <p>1º Apellido</p>
+        <p>2º Apellido</p>
+        <p>E-mail</p>
+        <p>Contraseña</p>
+        </div>
+        <form action="admin.php" method="POST" id="formNewUser">
+            <input type="text" placeholder="Nombre" name="nombreUsu">
+            <input type="text" placeholder="1º Apellido" name="primerA">
+            <input type="text" placeholder="2º Apellido" name="segundoA">
+            <input type="email" placeholder="E-mail" name="mailUsu">
+            <input type="password" placeholder="Contraseña" name="passUsu">
+            <?php
+                // sacar los roles de la BD
+            ?>
+
+            <button type="submit">Añadir</button>
+        </form>
+    </div>
 </body>
 </html>
 
 <?php
+
+
+
         // Desloguearse
         if(isset($_GET['deslogin'])){
             session_destroy();
