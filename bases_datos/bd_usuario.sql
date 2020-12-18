@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 16, 2020 at 07:51 PM
+-- Generation Time: Dec 18, 2020 at 08:48 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.1
 
@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `actividad8`
+-- Database: `bd_usuario`
 --
-CREATE DATABASE IF NOT EXISTS `actividad8` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `actividad8`;
+CREATE DATABASE IF NOT EXISTS `bd_usuario` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `bd_usuario`;
 
 -- --------------------------------------------------------
 
@@ -32,7 +32,7 @@ USE `actividad8`;
 
 CREATE TABLE IF NOT EXISTS `rol_usuario` (
   `id_rol` int(11) NOT NULL AUTO_INCREMENT,
-  `rol` varchar(10) NOT NULL,
+  `rol` varchar(20) NOT NULL,
   PRIMARY KEY (`id_rol`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `apellido_1` varchar(50) NOT NULL,
   `apellido_2` varchar(50) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
-  `clave` varchar(6) NOT NULL,
+  `clave` varchar(10) NOT NULL,
   `id_rol` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_rol` (`id_rol`)
@@ -80,7 +80,7 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido_1`, `apellido_2`, `email`, `cla
 -- Constraints for table `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol_usuario` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol_usuario` (`id_rol`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
