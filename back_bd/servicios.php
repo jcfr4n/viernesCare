@@ -18,11 +18,18 @@ function codigoUsuario(){
    //Mostramos la contraseña generada
   return $password;
 }
-
+/**
+ * Lista de pacientes del rastreador
+ * 
+ * Este servicio genera un listado de pacientes que estará en la página del rastreador a modo de consulta
+ * Recibe los parámetros:
+ * clave20
+ * listarPacientes
+ */
 if($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     // ---Listar Rastreador
-    if(isset($_GET['listarPacientes'])){
+    if(isset($_GET['clave20']) && isset($_GET['listarPacientes'])){
         $sql = $dbConn->prepare("SELECT idPaciente,dni,email,telefono,estado FROM paciente
                                 INNER JOIN estado
                                 ON paciente.idEstado = estado.idEstado");
@@ -34,6 +41,36 @@ if($_SERVER['REQUEST_METHOD'] == 'GET'){
     }
 
 }
+
+/**
+ * Busca paciente por id.
+ * Lo usan el médico y el rastreador
+ * Recibe los parámetros:
+ * clave20
+ * dni
+ * 
+ */
+
+if($_SERVER['REQUEST_METHOD'] == 'GET'){
+
+    // ---Listar Rastreador
+    if(isset($_GET['clave20']) && isset($_GET['dni'])){
+        $sql = $dbConn->prepare("SELECT idPaciente,dni,email,telefono,estado FROM paciente
+                                INNER JOIN estado
+                                ON paciente.idEstado = estado.idEstado
+                                WHERE dni=:dni");
+        $sql->bindValue('dni',$_GET['dni']);
+        $sql->execute();
+        $sql->setFetchMode(PDO::FETCH_ASSOC);
+        header("HTTP/1.1 200 OK");
+        echo json_encode( $sql->fetchAll() );
+        exit();
+    }
+
+}
+
+
+
 /**
  * Aquí hacemos la inclusión del nuevo paciente. Necesita recibir los parámetros:
  * clave20
@@ -68,6 +105,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
 
 }
+
 
 
 if($_SERVER['REQUEST_METHOD'] == 'DELETE'){
