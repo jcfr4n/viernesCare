@@ -1,0 +1,82 @@
+@font-face {
+  font-family: fBold;
+  src: url(../fonts/OpenSans-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: fLight;
+  src: url(../fonts/OpenSans-Light.ttf);
+}
+
+@font-face {
+  font-family: fRegular;
+  src: url(../fonts/OpenSans-Regular.ttf);
+}
+
+#menu {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 15px;
+  padding-right: 25px;
+  background-color: #232931;
+}
+h1 {
+  color: #fff9f9;
+  font-family: fBold;
+  font-size: 2em;
+}
+#iconUser {
+  height: 42px;
+  margin-right: 14px;
+}
+#deslog {
+  display: flex;
+  /* width: 300px; */
+  align-items: center;
+  /* border: 1px solid red; */
+}
+#saludo {
+  color: #fff9f9;
+  font-family: fRegular;
+}
+#usermenu {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+#botonDeslog {
+  margin-left: 14px;
+  height: 24px;
+  width: 80px;
+  background-color: #13b14a;
+  border: none;
+  border-radius: 4px;
+  color: #fff9f9;
+  font-family: fLight;
+  font-size: 14px;
+}
+
+h2 {
+  font-family: fRegular;
+  font-size: 21px;
+}
+label {
+  margin-left: 8px;
+  font-family: fLight;
+}
+
+input {
+  border-radius: 4px;
+}
+button#uno,
+button#dos {
+  color: #fff9f9;
+  background-color: #13b14a;
+  font-family: fLight;
+  font-size: 14px;
+  border: none;
+  height: 24px;
+  width: 80px;
+}

@@ -57,15 +57,69 @@ h1 {
   font-family: fLight;
   font-size: 14px;
 }
+#formNewUser {
+  display: flex;
+  /* border: 1px solid #13b14a; */
+}
 #labels {
   display: flex;
-  border: 1px solid #13b14a;
+  /* border: 1px solid #13b14a; */
+  flex-direction: column;
+  margin-left: 4px;
+  font-family: fLight;
+}
+#Sub {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-left: 6px;
 }
 
 form input {
-  border-radius: 8px;
-  border: 1px solid #232931;
+  border-radius: 4px;
+  /* border: 1px solid #232931; */
 }
 input::-moz-placeholder {
   text-align: center;
+}
+
+#Busernew {
+  background-color: #13b14a;
+  border-radius: 4px;
+  color: #fff9f9;
+  font-family: fLight;
+  font-size: 14px;
+  border: none;
+  height: 24px;
+  width: 80px;
+}
+
+#tittle {
+  font-family: fRegular;
+  font-size: 21px;
+}
+
+#tview {
+  font-size: 21px;
+  margin-top: 60px;
+  font-family: fRegular;
+}
+
+#imgT {
+  width: 24px;
+}
+
+table {
+  border-collapse: collapse;
+  font-family: fLight;
+  font-size: 14px;
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 18px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
 }
