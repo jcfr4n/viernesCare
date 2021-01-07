@@ -28,10 +28,6 @@
     <h2 id="tittle">Introducir usuario</h2>
     <form action="admin.php" method="POST" id="formNewUser">
         <div id="labels">
-            <label for="name">Dni</label>
-            <input type="text" placeholder="Dni" id="dni" name="dni">
-        </div>
-        <div id="labels">
             <label for="name">Nombre</label>
             <input type="text" placeholder="Nombre" id="name" name="nombreUsu">
         </div>
@@ -56,10 +52,16 @@
             <input type="password" placeholder="Contraseña" id="passW" name="passUsu">
         </div>
 
+        <div id="labels">
+            <label for="roles">Rol</label>
+            <select name="rol">
 
             <?php
-                // sacar los roles de la BD
+            include ("funcionesUsu.php");
+            obtenerRoles();
             ?>
+        </select>
+        </div>
             <div id="Sub">
                 <br>
             <button type="submit" id="Busernew">Añadir</button>
@@ -72,7 +74,6 @@
         <!-- Ejemplo para php -->
         <table>
             <tr>
-                <th>DNI</th>
                 <th>Nombre</th>
                 <th>1º Apellido</th>
                 <th>2º Apellido</th>
@@ -81,36 +82,31 @@
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
-            <tr>
-                <td>dni</td>
-                <td>nombre</td>
-                <td>1apesdgsgsdgsg</td>
-                <td>2ape</td>
-                <td>email</td>
-                <td>rol</td>
-                <td><img id="imgT" src='../images/edit.png'></td>
-                <td><img id="imgT" src='../images/remove.png'></td>
-            </tr>
-            <tr>
-                <td>dni</td>
-                <td>nombre</td>
-                <td>1apeasdfsgsgs</td>
-                <td>2ape</td>
-                <td>email</td>
-                <td>rol</td>
-                <td><img id="imgT" src='../images/edit.png'></td>
-                <td><img id="imgT" src='../images/remove.png'></td>
-            </tr>
+        <?php
+        mostrarUsu();
+        ?>
+
         </table>
 </body>
 </html>
 
 <?php
 
-
-
         // Desloguearse
         if(isset($_GET['deslogin'])){
             session_destroy();
+        }
+
+        // Insercion a bd de usuarios
+        if(isset($_POST["nombreUsu"]) && isset($_POST["primerA"]) && isset($_POST["segundoA"])&& isset($_POST["mailUsu"])&& isset($_POST["passUsu"])&& isset($_POST["rol"])){
+                newUser($_POST["nombreUsu"],$_POST["primerA"],$_POST["segundoA"],$_POST["mailUsu"],$_POST["passUsu"],$_POST["rol"]);
+        }
+
+        if(isset($_POST["deleteU"])){
+            $idUsu = $_POST["deleteU"];
+            echo $idUsu;
+            echo " - Borrado";
+            borrarUsu($idUsu);
+            header("http://localhost/viernesCare/pags/admin.php");
         }
 ?>

@@ -123,3 +123,8 @@ th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+#delButton {
+  border: none;
+  background-color: #13b14a;
+}

@@ -10,8 +10,8 @@
       <form action="login.php" method="post">
         <h1>Sign up</h1>
         <fieldset>
-          <legend>Dni</legend>
-          <input type="text" placeholder="Dni" name="dni" />
+          <legend>E-mail</legend>
+          <input type="text" placeholder="E-mail" name="mail" />
         </fieldset>
         <br />
         <fieldset>
@@ -27,7 +27,8 @@
 
 <?php
 if(isset($_POST["user"]) && isset($_POST["pass"])){
-    $user = $_POST["user"];
+    $mail = $_POST["mail"];
     $pass = $_POST["pass"];
 }
+
 ?>
