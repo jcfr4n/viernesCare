@@ -44,13 +44,19 @@ function mostrarUsu(){
                 for ($x=0;$x<$numfilas;$x++) {
                 $fila = $result->fetch_assoc();
                 echo "<tr>";
-                echo  "<td>$fila[nombre]</td>";
-                echo  "<td>$fila[apellido_1]</td>";
-                echo  "<td>$fila[apellido_2]</td>";
-                echo  "<td>$fila[email]</td>";
-                echo  "<td>$fila[rol]</td>";
                 echo "<form action='admin.php' method='post'>";
-                echo  "<td><button type='submit' name='edit' value='$fila[id]'> <img id='imgT' src='../images/edit.png'> </button></td>";
+                echo  "<td><input type='text' id='update' placeholder='$fila[nombre]' name='UdName' value='$fila[nombre]'>
+                </td>";
+                echo  "<td><input type='text' id='update' placeholder='$fila[apellido_1]' name='UdApelli1' value='$fila[apellido_1]'>
+                </td>";
+                echo  "<td><input type='text' id='update' placeholder='$fila[apellido_2]' name='UdApelli2' value='$fila[apellido_2]'>
+                </td>";
+                echo  "<td><input type='email' id='update' placeholder='$fila[email]' name='UdMail' value='$fila[email]'>
+                </td>";
+                echo  "<td>$fila[rol]</td>";
+                echo  "<td><button type='submit' id='uButton' name='editU' value='$fila[id]'> <img id='imgT' src='../images/edit.png'> </button></td>";
+                echo "</form>";
+                echo "<form action='admin.php' method='post'>";
                 echo  "<td><button type='submit' id='delButton' name='deleteU' value='$fila[id]'> <img id='imgT' src='../images/remove.png'> </button></td>";
                 echo "</form>";
                 echo "</tr>";
@@ -66,11 +72,21 @@ $conn = new mysqli("localhost","root","","usuarios_viernescare");
             }else{
             $sql="DELETE FROM usuario WHERE id = $idUsu";
                   if ($conn->query($sql) === TRUE) {
-                      
                   }
             }
             $conn->close();
+}
 
+function updateUsu($idU,$nameU,$apellidoU1,$apellidoU2,$mailU){
+    $conn = new mysqli("localhost","root","","usuarios_viernescare");
+            if($conn->connect_error) {
+            echo "error";
+            }else{
+                $sql="UPDATE `usuario` SET `nombre` = '$nameU', `apellido_1` = '$apellidoU1', `apellido_2` = '$apellidoU2', `email` = '$mailU' WHERE `usuario`.`id` = '$idU'";
+                if ($conn->query($sql) === TRUE) {
+                  }
+            }
+            $conn->close();
 }
 
 ?>

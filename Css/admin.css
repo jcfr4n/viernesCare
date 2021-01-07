@@ -124,7 +124,18 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-#delButton {
+#delButton,
+#uButton {
   border: none;
-  background-color: #13b14a;
+  background-color: transparent;
+}
+
+#update {
+  outline: 0;
+  border-width: 0 0 2px;
+  background-color: transparent;
+  border-color: #232931;
+}
+#update:focus {
+  border-color: #13b14a;
 }

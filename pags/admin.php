@@ -109,4 +109,14 @@
             borrarUsu($idUsu);
             header("http://localhost/viernesCare/pags/admin.php");
         }
+
+        if(isset($_POST["UdName"]) && isset($_POST["UdApelli1"])&& isset($_POST["UdApelli2"])&& isset($_POST["UdMail"])){
+            $newName = $_POST["UdName"];
+            $newAp1 = $_POST["UdApelli1"];
+            $newAp2 = $_POST["UdApelli2"];
+            $newMail = $_POST["UdMail"];
+            $idU = $_POST["editU"];
+            updateUsu($idU,$newName,$newAp1,$newAp2,$newMail);
+            header("http://localhost/viernesCare/pags/admin.php");
+        }
 ?>
