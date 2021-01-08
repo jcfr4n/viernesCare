@@ -19,6 +19,18 @@ $dbConn =  connect($db);
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   if (isset($_GET['clave20'])) {
+    if ((isset ($_GET['mail'])) && (isset($_GET['pass']))){
+      $sql = $dbConn->prepare("SELECT p.idPaciente FROM paciente p INNER JOIN estado e ON p.idEstado=e.idEstado where email=:mail AND codPaciente=:pass");
+      $sql->bindValue(':mail', $_GET['mail']);
+      $sql->bindValue(':pass', $_GET['pass']);
+      $sql->execute();
+      header("HTTP/1.1 200 OK");
+      echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+      exit();
+      
+    }else{
+
+    
     if (isset($_GET['idPaciente'])) {
       //Mostrar un paciente
       $sql = $dbConn->prepare("SELECT p.dni, p.email, p.telefono, e.estado FROM paciente p INNER JOIN estado e ON p.idEstado=e.idEstado where idPaciente=:idPaciente");
@@ -35,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       header("HTTP/1.1 200 OK");
       echo json_encode($sql->fetchAll());
       exit();
+    } 
     }
   }
 }

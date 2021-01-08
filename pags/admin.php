@@ -1,7 +1,6 @@
   <?php
         session_start();
         if(!isset ($_SESSION["admin"])){
-            // die("Usted no es administrador");
             header("Location: http://localhost/viernescare/index.php");
         }
 ?>

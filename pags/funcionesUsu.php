@@ -28,21 +28,23 @@ function comprobarLogin($mail,$pass){
                     $curl = curl_init();
 
                     curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'http://localhost/viernescare/cod/accionesPacientes.php?clave20',
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        CURLOPT_POSTFIELDS => array('dni' => '09876543B','email' => 'ffsfsf@gsd.es','telefono' => '0987654321','idEstado' => '1'),
+                    CURLOPT_URL => "localhost/viernesCare/cod/accionesPacientes.php?clave20&mail={$mail}&pass={$pass}",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'GET',
                     ));
 
-$response = curl_exec($curl);
+                    $response = curl_exec($curl);
 
-curl_close($curl);
-echo $response;
+                    curl_close($curl);
+                    $id=json_decode($response,true);
+                    $_SESSION['paciente'] = $id['idPaciente'];
+                    return "pags/paciente.php";
+                    
                 }
             }
 }
