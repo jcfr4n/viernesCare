@@ -3,6 +3,7 @@
         if(!isset ($_SESSION["rastreador"])){
             header("Location: http://localhost/viernescare/index.php");
         }
+        include("funcionesUsu.php");
 ?>
 
 <html >
@@ -39,17 +40,24 @@
                 <?php
                 // sacar los roles de la BD
                 ?>
-                <br><br>
-                <label for="name">Notas:</label><br>
-                <textarea name="nota" id="nota" cols="50" rows="10"></textarea><br><br>
                 <button id="uno" name="añade_pac" type="submit">Añadir</button><br><br><br>
             </form>
         </div>
         <div>
             <h2>Ver Pacientes:</h2>
-            <button id="dos" type="submit" name="consulta_pac">Consulta</button><br>
-            <table id="consulta_paciente">
-            </table>
+            <table>
+            <tr>
+                <th>DNI</th>
+                <th>E-mail</th>
+                <th>Telefono</th>
+                <th>Estado</th>
+            </tr>
+        <?php
+        mostrarPac();
+        ?>
+
+        </table>
+
         </div>
     </div>
 </body>
@@ -59,6 +67,35 @@
         // Desloguearse
         if(isset($_GET['deslogin'])){
             session_destroy();
+        }
+
+        //new paciente
+        if(isset($_POST['dni_pac'])&& isset($_POST['email_pac']) && isset($_POST['tel_pac'])){
+            $dni = $_POST['dni_pac'];
+            $email = $_POST['email_pac'];
+            $telefono = $_POST['tel_pac'];
+            $clave20 = clave20();
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://localhost/viernescare/cod/accionesPacientes.php?',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => "clave20=1&dni={$dni}&email={$email}&telefono={$telefono}&idEstado=1",
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/x-www-form-urlencoded'
+            ),
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+
         }
 
 

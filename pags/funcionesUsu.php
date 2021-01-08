@@ -1,6 +1,5 @@
 
 <?php
-session_start();
 // Comprueba el login si son usuarios o pacientes
 function comprobarLogin($mail,$pass){
     $numfilas=0;
@@ -141,6 +140,54 @@ function updateUsu($idU,$nameU,$apellidoU1,$apellidoU2,$mailU){
             $conn->close();
 }
 
+// Generar 20 caracteres aleatorios
+function clave20(){
+  //Carácteres para la contraseña
+  $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
+  $codigo = "";
+  //Reconstruimos la contraseña segun la longitud que se quiera
+  for($i=0;$i<20;$i++) {
+     //obtenemos un caracter aleatorio escogido de la cadena de caracteres
+     $codigo .= substr($str,rand(0,62),1);
+  }
+  //Mostramos la contraseña generada
+ return $codigo;
+}
 
+function mostrarPac(){
+            $curl = curl_init();
 
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'http://localhost/viernescare/cod/accionesPacientes.php?clave20',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+                $datosDesc = json_decode($response,TRUE);
+
+                $n = count($datosDesc);
+
+                for($i=0;$i < $n; $i++){
+                    $dni = $datosDesc[$i]['dni'];
+                    $email = $datosDesc[$i]['email'];
+                    $telefono = $datosDesc[$i]['telefono'];
+                    $estadop =$datosDesc[$i]['estado'];
+
+                    echo "<tr>";
+                    echo "<td>$dni</td>";
+                    echo "<td>$email</td>";
+                    echo "<td>$telefono</td>";
+                    echo "<td>$estadop</td>";
+                    echo "</tr>";
+                }
+
+}
 ?>

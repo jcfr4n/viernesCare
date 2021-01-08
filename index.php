@@ -1,3 +1,7 @@
+<?php
+
+session_start();
+?>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -33,7 +37,7 @@ if(isset($_POST["mail"]) && isset($_POST["pass"])){
     include("pags/funcionesUsu.php");
    $usuOk= comprobarLogin($mail,$pass);
    header("Location: http://localhost/viernescare/".$usuOk);
-  
+
 
 }
 

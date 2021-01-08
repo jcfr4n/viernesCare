@@ -80,3 +80,17 @@ button#dos {
   height: 24px;
   width: 80px;
 }
+table {
+  border-collapse: collapse;
+  font-family: fLight;
+  font-size: 14px;
+}
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 18px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
