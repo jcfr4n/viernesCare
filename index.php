@@ -7,7 +7,7 @@
   </head>
   <body>
     <div id="formularioLog">
-      <form action="login.php" method="post">
+      <form action="index.php" method="post">
         <h1>Sign up</h1>
         <fieldset>
           <legend>E-mail</legend>
@@ -26,9 +26,14 @@
 </html>
 
 <?php
-if(isset($_POST["user"]) && isset($_POST["pass"])){
+if(isset($_POST["mail"]) && isset($_POST["pass"])){
     $mail = $_POST["mail"];
     $pass = $_POST["pass"];
+
+    include("pags/funcionesUsu.php");
+   $usuOk= comprobarLogin($mail,$pass);
+   header("Location: http://localhost/viernescare/".$usuOk);
+
 }
 
 ?>

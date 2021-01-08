@@ -1,5 +1,52 @@
 
 <?php
+session_start();
+// Comprueba el login si son usuarios o pacientes
+function comprobarLogin($mail,$pass){
+    $numfilas=0;
+    $conn = new mysqli("localhost","root","","usuarios_viernescare");
+            if($conn->connect_error) {
+                echo "error";
+            }else{
+                $consultaUsu ="SELECT email, clave, id_rol FROM usuario WHERE email ='$mail' AND clave='$pass'";
+                $result = $conn->query($consultaUsu);
+                $numfilas = $result->num_rows;
+                $fila = $result->fetch_assoc();
+                if($numfilas>0){
+                    $idUsuario = $fila['id_rol'];
+                    if($idUsuario == 1){
+                    $_SESSION["admin"]=1;
+                        return "pags/admin.php";
+                    }elseif($idUsuario == 2){
+                        $_SESSION["rastreador"]=2;
+                        return "pags/rastreador.php";
+                    }else{
+                        $_SESSION["medico"]=3;
+                        return "pags/medico.php";
+                    }
+                }else{
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'http://localhost/viernescare/cod/accionesPacientes.php?clave20',
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        CURLOPT_POSTFIELDS => array('dni' => '09876543B','email' => 'ffsfsf@gsd.es','telefono' => '0987654321','idEstado' => '1'),
+                    ));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+                }
+            }
+}
+
 
 // Obtener roles de usuarios
 function obtenerRoles(){
@@ -7,7 +54,7 @@ function obtenerRoles(){
             if($conn->connect_error) {
                 echo "error";
             }else{
-                $consultaRoles = "select id_rol,rol from rol_usuario";
+                $consultaRoles = "SELECT id_rol,rol FROM rol_usuario";
                 $result = $conn->query($consultaRoles);
                 $numfilas = $result->num_rows;
                 for ($x=0;$x<$numfilas;$x++) {
@@ -18,7 +65,7 @@ function obtenerRoles(){
 }
 
 
-
+// Añade nuevos usuarios a la BD
 function newUser($nombre,$apellido1,$apellido2,$email,$clave,$id_rol){
     $conn = new mysqli("localhost","root","","usuarios_viernescare");
             if($conn->connect_error) {
@@ -33,6 +80,7 @@ function newUser($nombre,$apellido1,$apellido2,$email,$clave,$id_rol){
             }
 }
 
+//Muestra los usuarios en una tabla y ademas permite eliminarlos y editarlos desde la misma tabla
 function mostrarUsu(){
     $conn = new mysqli("localhost","root","","usuarios_viernescare");
             if($conn->connect_error) {
@@ -65,6 +113,7 @@ function mostrarUsu(){
             }
 }
 
+// borra usuarios
 function borrarUsu($idUsu){
 $conn = new mysqli("localhost","root","","usuarios_viernescare");
             if($conn->connect_error) {
@@ -77,6 +126,7 @@ $conn = new mysqli("localhost","root","","usuarios_viernescare");
             $conn->close();
 }
 
+// actualiza usuarios
 function updateUsu($idU,$nameU,$apellidoU1,$apellidoU2,$mailU){
     $conn = new mysqli("localhost","root","","usuarios_viernescare");
             if($conn->connect_error) {
@@ -88,5 +138,7 @@ function updateUsu($idU,$nameU,$apellidoU1,$apellidoU2,$mailU){
             }
             $conn->close();
 }
+
+
 
 ?>

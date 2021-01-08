@@ -1,6 +1,8 @@
   <?php
-        session_start();
-        $_SESSION["AdminU"]="Carlos"; // Esto habra que quitarlo, solo para pruebas
+       session_start();
+        if(!isset ($_SESSION["medico"])){
+            header("Location: http://localhost/viernescare/index.php");
+        }
 ?>
 
 <html lang="en">
@@ -17,8 +19,7 @@
             <form action='../index.php' method='GET' id='usermenu'>
                 <img src="../images/icon-user.png" id="iconUser">
                 <?php
-                    $nameU =$_SESSION["AdminU"];
-                    echo "<h2 id='saludo'>Hi, $nameU</h2>";
+                    echo "<h2 id='saludo'>Hi, Medico</h2>";
                     echo "<button type='submit' name='deslogin' id='botonDeslog'>Salir</button>";
                 ?>
             </form>
