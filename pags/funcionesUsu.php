@@ -265,8 +265,8 @@ $notasPac = json_decode($response, TRUE);
 
         echo "<div id='notasindi'>";
         echo "<h3 id='notatex'>$nota</h3>";
-        echo "<div id='fechaHora'>";
-        echo "<h4>$fecha</h4>";
+        echo "<div id='fechahora'>";
+        echo "<h4 id='fecha'>$fecha</h4>";
         echo "<h4>$hora</h4>";
         echo "</div>";
         echo "</div>";

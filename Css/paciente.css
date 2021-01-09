@@ -102,11 +102,16 @@ tr:nth-child(even) {
   background-color: #232931;
   margin-bottom: 14px;
   display: flex;
-  border: solid 2px red;
+  flex-direction: column;
 }
 #notatex {
-  margin-left: 4px;
-  border: solid 2px green;
+  margin-left: 14px;
 }
-#fechaHora {
+#fechahora {
+  display: flex;
+  justify-content: end;
+  font-size: 12px;
+}
+#fecha {
+  margin-right: 14px;
 }
