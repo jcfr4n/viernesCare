@@ -159,6 +159,7 @@ function clave20()
     return $codigo;
 }
 
+// mostrar los pacientes para el rastreador (Todo menos notas)
 function mostrarPac()
 {
     $curl = curl_init();
@@ -195,12 +196,14 @@ function mostrarPac()
         echo "</tr>";
     }
 }
+
+//Mostrar todo de un paciente, menos notas ni clave.
 function mostrarPacId($idPaciente)
 {
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-        CURLOPT_URL => "localhost/viernesCare/cod/accionesPacientes.php?clave20&idPaciente={$idPaciente}",
+        CURLOPT_URL => "localhost/viernescare/cod/accionesPacientes.php?clave20&idPaciente={$idPaciente}",
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -231,11 +234,13 @@ function mostrarPacId($idPaciente)
         echo "</tr>";
     // }
 }
+
+//Muestra las notas del paciente
 function mostrarNotasId($idPaciente){
     $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'localhost/viernesCare/cod/accionesNotas.php?clave20=&idPaciente=1',
+  CURLOPT_URL => "localhost/viernescare/cod/accionesNotas.php?clave20=&idPaciente={$idPaciente}",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -248,6 +253,23 @@ curl_setopt_array($curl, array(
 $response = curl_exec($curl);
 
 curl_close($curl);
-echo $response;
+
+$notasPac = json_decode($response, TRUE);
+
+    $n = count($notasPac);
+
+     for ($i = 0; $i < $n; $i++) {
+        $nota = $notasPac[$i]['nota'];
+        $fecha = $notasPac[$i]['fechaNota'];
+        $hora = $notasPac[$i]['horaNota'];
+
+        echo "<div id='notasindi'>";
+        echo "<h3 id='notatex'>$nota</h3>";
+        echo "<div id='fechaHora'>";
+        echo "<h4>$fecha</h4>";
+        echo "<h4>$hora</h4>";
+        echo "</div>";
+        echo "</div>";
+     }
 }
 ?>

@@ -38,7 +38,6 @@ if(isset($_POST["mail"]) && isset($_POST["pass"])){
    $usuOk= comprobarLogin($mail,$pass);
    header("Location: http://localhost/viernescare/".$usuOk);
 
-
 }
 
 ?>
