@@ -29,7 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       exit();
       
     }else{
-
+        if (isset($_GET['dni'])) {
+              //Mostrar un paciente
+              $sql = $dbConn->prepare("SELECT p.dni, p.email, p.telefono, e.estado FROM paciente p INNER JOIN estado e ON p.idEstado=e.idEstado where dni=:dni");
+              $sql->bindValue(':dni', $_GET['dni']);
+              $sql->execute();
+              header("HTTP/1.1 200 OK");
+              echo json_encode($sql->fetch(PDO::FETCH_ASSOC));
+              exit();
+    }else{
     
     if (isset($_GET['idPaciente'])) {
       //Mostrar un paciente
@@ -47,9 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       header("HTTP/1.1 200 OK");
       echo json_encode($sql->fetchAll());
       exit();
-    } 
     }
+  }}
+
   }
+
+  
+
+
 }
 /**
  * Crear nuevo paciente

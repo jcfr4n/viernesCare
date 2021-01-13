@@ -37,9 +37,6 @@
                 <input type="text" name="email_pac">
                 <label for="name">Teléfono:</label>
                 <input type="text" name="tel_pac">
-                <?php
-                // sacar los roles de la BD
-                ?>
                 <button id="uno" name="añade_pac" type="submit">Añadir</button><br><br><br>
             </form>
         </div>
@@ -95,9 +92,9 @@
             $response = curl_exec($curl);
 
             curl_close($curl);
+            header('Location: http://localhost/viernesCare/pags/rastreador.php');
+            
 
         }
-
-
 
 ?>

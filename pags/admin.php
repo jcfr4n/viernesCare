@@ -3,6 +3,8 @@
         if(!isset ($_SESSION["admin"])){
             header("Location: http://localhost/viernescare/index.php");
         }
+        include ("funcionesUsu.php");
+        
 ?>
 
 <html lang="en">
@@ -28,7 +30,7 @@
     </div>
 
     <h2 id="tittle">Introducir usuario</h2>
-    <form action="admin.php" method="POST" id="formNewUser">
+    <form action="funcionesUsu.php" method="POST" id="formNewUser">
         <div id="labels">
             <label for="name">Nombre</label>
             <input type="text" placeholder="Nombre" id="name" name="nombreUsu">
@@ -59,7 +61,7 @@
             <select name="rol">
 
             <?php
-            include ("funcionesUsu.php");
+            
             obtenerRoles();
             ?>
         </select>
@@ -86,6 +88,9 @@
             </tr>
         <?php
         mostrarUsu();
+        if(isset($_POST['editU'])){
+            // header('Location: http://localhost/viernescare/pags/admin.php');
+        }
         ?>
 
         </table>
@@ -97,28 +102,5 @@
         // Desloguearse
         if(isset($_GET['deslogin'])){
             session_destroy();
-        }
-
-        // Insercion a bd de usuarios
-        if(isset($_POST["nombreUsu"]) && isset($_POST["primerA"]) && isset($_POST["segundoA"])&& isset($_POST["mailUsu"])&& isset($_POST["passUsu"])&& isset($_POST["rol"])){
-                newUser($_POST["nombreUsu"],$_POST["primerA"],$_POST["segundoA"],$_POST["mailUsu"],$_POST["passUsu"],$_POST["rol"]);
-        }
-
-        if(isset($_POST["deleteU"])){
-            $idUsu = $_POST["deleteU"];
-            echo $idUsu;
-            echo " - Borrado";
-            borrarUsu($idUsu);
-            header("http://localhost/viernesCare/pags/admin.php");
-        }
-
-        if(isset($_POST["UdName"]) && isset($_POST["UdApelli1"])&& isset($_POST["UdApelli2"])&& isset($_POST["UdMail"])){
-            $newName = $_POST["UdName"];
-            $newAp1 = $_POST["UdApelli1"];
-            $newAp2 = $_POST["UdApelli2"];
-            $newMail = $_POST["UdMail"];
-            $idU = $_POST["editU"];
-            updateUsu($idU,$newName,$newAp1,$newAp2,$newMail);
-            header("http://localhost/viernesCare/pags/admin.php");
         }
 ?>

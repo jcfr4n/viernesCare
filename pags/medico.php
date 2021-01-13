@@ -3,6 +3,7 @@
         if(!isset ($_SESSION["medico"])){
             header("Location: http://localhost/viernescare/index.php");
         }
+        include("funcionesUsu.php");
 ?>
 
 <html lang="en">
@@ -27,7 +28,7 @@
     </div>
 
     <h2 id="tittle">Buscar Paciente</h2>
-    <form action="admin.php" method="POST" id="searchU">
+    <form action="medico.php" method="POST" id="searchU">
             <label for="name">Dni</label>
             <input type="text" placeholder="Dni" id="dni" name="dni">
 
@@ -41,7 +42,11 @@
 
 <?php
 
-
+// traer datos paciente dni
+if(isset($_POST['dni'])){
+    $dni = $_POST['dni'];
+    montrarPacienteDni($dni);
+}
 
         // Desloguearse
         if(isset($_GET['deslogin'])){

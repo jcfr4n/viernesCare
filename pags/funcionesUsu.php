@@ -1,5 +1,26 @@
 
 <?php
+// Insercion a bd de usuarios
+        if(isset($_POST["nombreUsu"]) && isset($_POST["primerA"]) && isset($_POST["segundoA"])&& isset($_POST["mailUsu"])&& isset($_POST["passUsu"])&& isset($_POST["rol"])){
+                newUser($_POST["nombreUsu"],$_POST["primerA"],$_POST["segundoA"],$_POST["mailUsu"],$_POST["passUsu"],$_POST["rol"]);
+                unset($_POST);
+        }
+//Eliminar usuarios
+        if(isset($_POST["deleteU"])){
+            $idUsu = $_POST["deleteU"];
+            borrarUsu($idUsu);
+            // header("http://localhost/viernesCare/pags/admin.php");
+        }
+// actualizar usuarios
+ if(isset($_POST["UdName"]) && isset($_POST["UdApelli1"])&& isset($_POST["UdApelli2"])&& isset($_POST["UdMail"])){
+            $newName = $_POST["UdName"];
+            $newAp1 = $_POST["UdApelli1"];
+            $newAp2 = $_POST["UdApelli2"];
+            $newMail = $_POST["UdMail"];
+            $idU = $_POST["editU"];
+            updateUsu($idU,$newName,$newAp1,$newAp2,$newMail);
+        }
+
 // Comprueba el login si son usuarios o pacientes
 function comprobarLogin($mail, $pass)
 {
@@ -28,7 +49,7 @@ function comprobarLogin($mail, $pass)
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => "localhost/viernesCare/cod/accionesPacientes.php?clave20&mail={$mail}&pass={$pass}",
+                CURLOPT_URL => "localhost/viernescare/cod/accionesPacientes.php?clave20&mail={$mail}&pass={$pass}",
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -80,6 +101,8 @@ function newUser($nombre, $apellido1, $apellido2, $email, $clave, $id_rol)
         }
 
         $conn->close();
+        header('Location: http://localhost/viernesCare/pags/admin.php');
+        die();
     }
 }
 
@@ -90,7 +113,7 @@ function mostrarUsu()
     if ($conn->connect_error) {
         echo "error";
     } else {
-        $mostrarUsus = "select id,nombre,apellido_1,apellido_2, email,rol from usuario INNER JOIN rol_usuario ON usuario.id_rol = rol_usuario.id_rol";
+        $mostrarUsus = "select id,nombre,apellido_1,apellido_2, email,rol from usuario INNER JOIN rol_usuario ON usuario.id_rol = rol_usuario.id_rol ORDER BY usuario.id";
         $result = $conn->query($mostrarUsus);
         $numfilas = $result->num_rows;
         for ($x = 0; $x < $numfilas; $x++) {
@@ -218,9 +241,7 @@ function mostrarPacId($idPaciente)
     curl_close($curl);
     $datosDesc = json_decode($response, TRUE);
 
-    // $n = count($datosDesc);
 
-    // for ($i = 0; $i < $n; $i++) {
         $dni = $datosDesc['dni'];
         $email = $datosDesc['email'];
         $telefono = $datosDesc['telefono'];
@@ -271,5 +292,44 @@ $notasPac = json_decode($response, TRUE);
         echo "</div>";
         echo "</div>";
      }
+}
+
+function montrarPacienteDni($dni){
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'http://localhost/viernescare/cod/accionesPacientes.php?clave20&dni=252525E',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'GET',
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+$notasPac = json_decode($response, TRUE);
+        $dni = $notasPac['dni'];
+        $email = $notasPac['email'];
+        $telefono = $notasPac['telefono'];
+        $estadop = $notasPac['estado'];
+            echo "<h2>Información del Paciente:</h2>";
+            echo "<table>";
+            echo"<tr>";
+            echo"<th>DNI</th>";
+            echo "<th>E-mail</th>";
+            echo "<th>Telefono</th>";
+            echo "<th>Estado</th>";
+            echo"</tr>";
+        echo "<tr>";
+        echo "<td>$dni</td>";
+        echo "<td>$email</td>";
+        echo "<td>$telefono</td>";
+        echo "<td>$estadop</td>";
+        echo "</tr>";
+        echo "</table>";
 }
 ?>
